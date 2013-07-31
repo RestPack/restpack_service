@@ -1,5 +1,6 @@
-require "restpack_service/version"
+require "mutations"
 
-module RestpackService
-  # Your code goes here...
-end
+require "restpack_service/version"
+require "restpack_service/error"
+require "restpack_service/response"
+require "restpack_service/service"
