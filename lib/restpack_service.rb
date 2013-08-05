@@ -1,4 +1,5 @@
 require "mutations"
+require "yajl"
 
 require "restpack_service/version"
 require "restpack_service/error"

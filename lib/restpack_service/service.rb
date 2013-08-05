@@ -16,10 +16,10 @@ module RestPack
 
           @response.status ||= :unprocessable_entity
         else
-          @response.status ||= :success
+          @response.status ||= :ok
         end
 
-        if @response.status == :success
+        if @response.status == :ok
           @response.result = mutation.result
         end
       rescue
