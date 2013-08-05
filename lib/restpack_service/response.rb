@@ -3,6 +3,7 @@ module RestPack
     attr_accessor :result, :errors, :status
 
     def initialize
+      @result = {}
       @errors = {}
     end
 
@@ -14,8 +15,9 @@ module RestPack
       Status.from_status(status)
     end
 
-    def field_errors(key)
-      @errors.select { |error| error.key.to_sym == key.to_sym }
+    def add_error(field, message)
+      @errors[field] ||= []
+      @errors[field] << message
     end
 
     def self.from_rest(rest_response)
@@ -38,7 +40,8 @@ module RestPack
       @@map = {
         200 => :ok,
         404 => :not_found,
-        422 => :unprocessable_entity
+        422 => :unprocessable_entity,
+        500 => :internal_service_error
       }
 
       def self.from_code(code)

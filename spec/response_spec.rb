@@ -6,7 +6,7 @@ describe RestPack::Response do
   describe "#from_rest" do
     it "parses a successful response" do
       response = RestPack::Response.from_rest(
-        stub(code: 200, body: '{ "key": "value" }')
+        double(code: 200, body: '{ "key": "value" }')
       )
 
       response.status.should == :ok
@@ -17,7 +17,7 @@ describe RestPack::Response do
 
     it "extracts errors from response body" do
       response = RestPack::Response.from_rest(
-        stub(code: 200, body: '{ "key": "value", "errors": {
+        double(code: 200, body: '{ "key": "value", "errors": {
           "name": ["error 1", "error 2"]
         } }')
       )

@@ -11,7 +11,7 @@ module RestPack
 
         if mutation.errors
           mutation.errors.message.each do |error|
-            @response.errors << Error.new(error[0], error[1].gsub(error[0].capitalize, ''))
+            @response.add_error(error[0], error[1].gsub(error[0].capitalize, ''))
           end
 
           @response.status ||= :unprocessable_entity
@@ -20,10 +20,12 @@ module RestPack
         end
 
         if @response.status == :ok
-          @response.result = mutation.result
+          @response.result = mutation.result if mutation.result
         end
-      rescue
-        @response.errors << Error.new(:base, 'Service Error')
+      rescue Exception => e
+        p e.message #TODO: GJ: logging
+
+        @response.add_error(:base, 'Service Error')
         @response.status = :internal_service_error
       end
 
