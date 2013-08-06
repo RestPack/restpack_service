@@ -1,4 +1,4 @@
-module RestPack
+module RestPack::Service
   class Error
     attr_accessor :key, :message
 

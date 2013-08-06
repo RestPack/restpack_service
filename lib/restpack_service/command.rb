@@ -1,5 +1,5 @@
-module RestPack
-  class Service < Mutations::Command
+module RestPack::Service
+  class Command < Mutations::Command
     attr_accessor :response
 
     def run

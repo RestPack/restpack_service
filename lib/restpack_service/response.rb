@@ -1,4 +1,4 @@
-module RestPack
+module RestPack::Service
   class Response
     attr_accessor :result, :errors, :status
 
