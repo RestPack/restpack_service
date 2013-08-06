@@ -5,7 +5,7 @@ require 'restpack_service/version'
 
 Gem::Specification.new do |spec|
   spec.name          = "restpack_service"
-  spec.version       = RestpackService::VERSION
+  spec.version       = RestPack::Service::VERSION
   spec.authors       = ["Gavin Joyce"]
   spec.email         = ["gavinjoyce@gmail.com"]
   spec.description   = %q{RestPack service base}
@@ -20,9 +20,10 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency "mutations", "~> 0.6.0"
   spec.add_dependency "yajl-ruby", "~> 1.1.0"
-  spec.add_dependency "restpack_gem", "~> 0.0.7"
+  spec.add_dependency "restpack_gem", "~> 0.0.8"
 
   spec.add_development_dependency "bundler", "~> 1.3"
   spec.add_development_dependency "rake"
   spec.add_development_dependency "rspec"
+  spec.add_development_dependency "bump"
 end
