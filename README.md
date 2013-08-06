@@ -1,29 +1,15 @@
-# RestpackService
+# restpack_service [![Build Status](https://api.travis-ci.org/RestPack/restpack_service.png?branch=master)](https://travis-ci.org/RestPack/restpack_service) [![Code Climate](https://codeclimate.com/github/RestPack/restpack_service.png)](https://codeclimate.com/github/RestPack/restpack_service) [![Dependency Status](https://gemnasium.com/RestPack/restpack_service.png)](https://gemnasium.com/RestPack/restpack_service)
 
-TODO: Write a gem description
+Base functionality for RestPack services
 
-## Installation
+## Developer Environment Setup
 
-Add this line to your application's Gemfile:
+```
+bundle install
+```
 
-    gem 'restpack_service'
+## Running Tests
 
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install restpack_service
-
-## Usage
-
-TODO: Write usage instructions here
-
-## Contributing
-
-1. Fork it
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create new Pull Request
+```
+rake test
+```
