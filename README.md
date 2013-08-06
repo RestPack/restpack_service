@@ -13,4 +13,3 @@ bundle install
 ```
 rake test
 ```
-
