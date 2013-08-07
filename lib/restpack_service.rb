@@ -1,5 +1,6 @@
 require "mutations"
 require "yajl"
+require "protected_attributes"
 
 require "restpack_service/version"
 require "restpack_service/configuration"

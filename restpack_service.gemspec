@@ -21,6 +21,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "mutations", "~> 0.6.0"
   spec.add_dependency "yajl-ruby", "~> 1.1.0"
   spec.add_dependency "restpack_gem", "~> 0.0.8"
+  spec.add_dependency "protected_attributes", "~> 1.0.3"
 
   spec.add_development_dependency "bundler", "~> 1.3"
   spec.add_development_dependency "rake"
