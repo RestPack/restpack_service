@@ -1,3 +1,4 @@
+require "active_record"
 require "mutations"
 require "yajl"
 require "protected_attributes"
