@@ -39,6 +39,7 @@ module RestPack::Service
     class Status
       @@map = {
         200 => :ok,
+        401 => :unauthorized,
         403 => :forbidden,
         404 => :not_found,
         422 => :unprocessable_entity,
