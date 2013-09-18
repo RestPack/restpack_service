@@ -23,7 +23,9 @@ module RestPack::Service
           @response.result = mutation.result if mutation.result
         end
       rescue Exception => e
+        p "---COMMAND EXCEPTION---"
         p e.message #TODO: GJ: logging
+        p "-----------------------"
 
         @response.add_error(:base, 'Service Error')
         @response.status = :internal_service_error
