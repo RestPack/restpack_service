@@ -1,5 +1,5 @@
 module RestPack
   module Service
-    VERSION = "0.0.41"
+    VERSION = "0.0.42"
   end
 end
