@@ -24,16 +24,17 @@ module RestPack::Service
 
     def self.require_service_module(module_name, service_path, restpack_namespace)
       require_all "#{service_path}/#{module_name.downcase}"
+      module_sym = module_name.capitalize.to_sym
 
-      existing_proxy_module = Object.const_get(module_name.capitalize)
+      existing_module = Object.const_defined?(module_sym) ? Object.const_get(module_sym) : nil
 
-      proxy_module = existing_proxy_module || Module.new
+      proxy_module = existing_module || Module.new
       proxy_module.module_eval do
         include Object.const_get("#{restpack_namespace}::Service::#{module_name.capitalize}")
       end
 
-      unless existing_proxy_module
-        Object.const_set module_name.capitalize, proxy_module
+      unless existing_module
+        Object.const_set module_sym, proxy_module
       end
     end
 
