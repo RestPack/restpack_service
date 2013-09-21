@@ -24,11 +24,17 @@ module RestPack::Service
 
     def self.require_service_module(module_name, service_path, restpack_namespace)
       require_all "#{service_path}/#{module_name.downcase}"
-      proxy_module = Module.new
+
+      existing_proxy_module = Object.const_get(module_name.capitalize)
+
+      proxy_module = existing_proxy_module || Module.new
       proxy_module.module_eval do
         include Object.const_get("#{restpack_namespace}::Service::#{module_name.capitalize}")
       end
-      Object.const_set module_name.capitalize, proxy_module
+
+      unless existing_proxy_module
+        Object.const_set module_name.capitalize, proxy_module
+      end
     end
 
     def self.get_service_path(load_caller, restpack_service_name)
