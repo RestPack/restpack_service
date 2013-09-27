@@ -25,6 +25,7 @@ module RestPack::Service
       rescue Exception => e
         puts "---COMMAND EXCEPTION---"
         puts e.message #TODO: GJ: logging
+        puts e.backtrace
         puts "-----------------------"
 
         @response.add_error(:base, 'Service Error')
