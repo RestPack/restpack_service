@@ -1,3 +1,5 @@
+require "restpack_service/activerecord/postgres_array_patch"
+
 require "mutations"
 require "yajl"
 require "protected_attributes"
