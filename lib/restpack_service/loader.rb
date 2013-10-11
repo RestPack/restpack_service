@@ -18,23 +18,28 @@ module RestPack::Service
       require_service_module 'models', service_path, restpack_namespace
       require_service_module 'serializers', service_path, restpack_namespace
       require_service_module 'commands', service_path, restpack_namespace
+      require_service_module 'jobs', service_path, restpack_namespace
     end
 
     private
 
     def self.require_service_module(module_name, service_path, restpack_namespace)
-      require_all "#{service_path}/#{module_name.downcase}"
-      module_sym = module_name.capitalize.to_sym
+      path = "#{service_path}/#{module_name.downcase}"
 
-      existing_module = Object.const_defined?(module_sym) ? Object.const_get(module_sym) : nil
+      if File.directory?(path)
+        require_all path
+        module_sym = module_name.capitalize.to_sym
 
-      proxy_module = existing_module || Module.new
-      proxy_module.module_eval do
-        include Object.const_get("#{restpack_namespace}::Service::#{module_name.capitalize}")
-      end
+        existing_module = Object.const_defined?(module_sym) ? Object.const_get(module_sym) : nil
 
-      unless existing_module
-        Object.const_set module_sym, proxy_module
+        proxy_module = existing_module || Module.new
+        proxy_module.module_eval do
+          include Object.const_get("#{restpack_namespace}::Service::#{module_name.capitalize}")
+        end
+
+        unless existing_module
+          Object.const_set module_sym, proxy_module
+        end
       end
     end
 
