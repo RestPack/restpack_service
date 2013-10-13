@@ -57,8 +57,8 @@ def it_acts_as_create_command(type)
     end
 
     context "when creating multiple items" do
-      let(:item1) { build("#{type}_request".to_sym) }
-      let(:item2) { build("#{type}_request".to_sym) }
+      let(:item1) { build("api_#{type}".to_sym) }
+      let(:item2) { build("api_#{type}".to_sym) }
       let(:params) { { plural => [item1, item2] } }
 
       it "returns the newly created #{type}s" do
