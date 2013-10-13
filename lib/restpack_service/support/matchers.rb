@@ -40,7 +40,7 @@ def it_acts_as_create_command(type)
 
   context "with valid params" do
     context "when creating a single item" do
-      let(:item) { build("#{type}_request".to_sym) }
+      let(:item) { build("api_#{type}".to_sym) }
       let(:params) { { plural => [item] } }
 
       it "returns the newly created #{type}" do
