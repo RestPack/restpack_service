@@ -1,7 +1,8 @@
 def it_acts_as_create_command(type)
   plural = "#{type}s".to_sym
-  model_class = "Models::#{type.capitalize}".constantize
-  serializer_class = "Serializers::#{type.capitalize}".constantize
+
+  model_class = "Models::#{type.to_s.camelize}".constantize
+  serializer_class = "Serializers::#{type.to_s.camelize}".constantize
 
   let(:response) { subject.class.run(params) }
 
