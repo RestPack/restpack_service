@@ -1,6 +1,6 @@
-def it_acts_as_create_command(type)
+def it_acts_as_create_command(namespace, type)
   plural = "#{type}s".to_sym
-  namespaced_type = "#{plural.to_s.camelize}::#{type.to_s.camelize}"
+  namespaced_type = "#{namespace.to_s.camelize}::#{type.to_s.camelize}"
 
   model_class = "Models::#{namespaced_type}".constantize
   serializer_class = "Serializers::#{namespaced_type}".constantize
