@@ -53,5 +53,60 @@ module RestPack::Service
     def field_error(key, message)
       add_error key, key, message
     end
+
+    def serialize(models)
+      serializer_klass.serialize(models)
+    end
+
+    def get
+      identifier = service_identifiers[:resources]
+      result = serializer_klass.resource(inputs)
+
+      if result[identifier].empty?
+        status :not_found
+      else
+        result
+      end
+    end
+
+    def list
+      serializer_klass.resource(inputs)
+    end
+
+    def create!
+      identifier = service_identifiers[:resources]
+      models = create_models!(inputs[identifier])
+      serialize(models)
+    end
+
+    private
+
+    def create_models!(array)
+      model_klass.create!(array)
+    end
+
+    def serializer_klass
+      "Serializers::#{service_namespace}".constantize
+    end
+
+    def model_klass
+      "Models::#{service_namespace}".constantize
+    end
+
+    def service_namespace
+      identifiers = service_identifiers
+      namespace = "#{identifiers[:service].capitalize}::#{identifiers[:resource].capitalize}"
+    end
+
+    def service_identifiers
+      #extract identifiers from ancestor in the form of 'Commands::Core::Application::Get'
+      namespaces = self.class.ancestors.first.to_s.split('::')
+      resource = namespaces[2].downcase
+      return {
+        service: namespaces[1].downcase.to_sym,
+        resource: resource.to_sym,
+        resources: resource.pluralize.to_sym
+      }
+    end
   end
 end
