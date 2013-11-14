@@ -1,8 +1,3 @@
-module Models;end
-module Serializers;end
-module Commands;end
-module Tasks;end
-
 module RestPack::Service
   class Loader
 
@@ -18,6 +13,11 @@ module RestPack::Service
       require "#{service_path}/configuration"
       require_all "#{service_path}/tasks"
 
+      modularize "Models"
+      modularize "Serializers"
+      modularize "Commands"
+      modularize "Tasks"
+      modularize "Jobs"
       modularize "Commands::#{module_name}"
 
       require_service_module 'models', service_path
