@@ -6,20 +6,19 @@ module Tasks;end
 module RestPack::Service
   class Loader
 
-    def self.load(name)
+    def self.load(gem_name, module_name)
       require 'require_all'
 
       require 'restpack_serializer'
       require 'active_support/core_ext'
 
-      restpack_service_name = "restpack_#{name}_service"
-      service_path = self.get_service_path(caller, restpack_service_name)
+      service_path = self.get_service_path(caller, gem_name)
 
       require "#{service_path}/version"
       require "#{service_path}/configuration"
       require_all "#{service_path}/tasks"
 
-      modularize "Commands::#{name.capitalize}"
+      modularize "Commands::#{module_name}"
 
       require_service_module 'models', service_path
       require_service_module 'serializers', service_path
