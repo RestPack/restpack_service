@@ -54,10 +54,6 @@ module RestPack::Service
       add_error key, key, message
     end
 
-    def serialize(models)
-      serializer_klass.serialize(models)
-    end
-
     def get
       identifier = service_identifiers[:resources]
       result = serializer_klass.resource(inputs)
@@ -77,6 +73,20 @@ module RestPack::Service
       identifier = service_identifiers[:resources]
       models = create_models!(inputs[identifier])
       serialize(models)
+    end
+
+    def single_create!
+      identifier = service_identifiers[:resources]
+      model = model_klass.create!(inputs)
+      as_json(model)
+    end
+
+    def serialize(models)
+      serializer_klass.serialize(models)
+    end
+
+    def as_json(model)
+      serializer_klass.as_json(model)
     end
 
     private

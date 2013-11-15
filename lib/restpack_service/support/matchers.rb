@@ -1,4 +1,5 @@
 require_relative 'matchers/create_command'
+require_relative 'matchers/single_create_command'
 
 def is_required(*params)
   params.each do |param|
