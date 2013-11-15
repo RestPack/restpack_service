@@ -1,3 +1,5 @@
+require 'modularize'
+
 module RestPack::Service
   class Loader
 
@@ -13,12 +15,12 @@ module RestPack::Service
       require "#{service_path}/configuration"
       require_all "#{service_path}/tasks"
 
-      modularize "Models"
-      modularize "Serializers"
-      modularize "Commands"
-      modularize "Tasks"
-      modularize "Jobs"
-      modularize "Commands::#{module_name}"
+      Modularize.create "Models"
+      Modularize.create "Serializers"
+      Modularize.create "Commands"
+      Modularize.create "Tasks"
+      Modularize.create "Jobs"
+      Modularize.create "Commands::#{module_name}"
 
       require_service_module 'models', service_path
       require_service_module 'serializers', service_path
@@ -27,20 +29,6 @@ module RestPack::Service
     end
 
     private
-
-    def self.modularize(path) #TODO: GJ: extract to a gem
-      root = Object
-      path.split('::').each do |name|
-        new_module = root.const_defined?(name) ? root.const_get(name) : nil
-
-        unless new_module
-          new_module = Module.new
-          root.const_set name, new_module
-        end
-
-        root = new_module
-      end
-    end
 
     def self.require_service_module(module_name, service_path)
       path = "#{service_path}/#{module_name.downcase}"
