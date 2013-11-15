@@ -17,7 +17,6 @@ module RestPack::Service
 
       Modularize.create "Models"
       Modularize.create "Serializers"
-      Modularize.create "Commands"
       Modularize.create "Tasks"
       Modularize.create "Jobs"
       Modularize.create "Commands::#{module_name}"
