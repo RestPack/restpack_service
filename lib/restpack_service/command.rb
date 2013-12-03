@@ -105,7 +105,7 @@ module RestPack::Service
 
     def service_namespace
       identifiers = service_identifiers
-      namespace = "#{identifiers[:service].capitalize}::#{identifiers[:resource].capitalize}"
+      namespace = "#{identifiers[:service]}::#{identifiers[:resource].capitalize}"
     end
 
     def service_identifiers
@@ -113,7 +113,7 @@ module RestPack::Service
       namespaces = self.class.ancestors.first.to_s.split('::')
       resource = namespaces[2].downcase
       return {
-        service: namespaces[1].downcase.to_sym,
+        service: namespaces[1].to_sym,
         resource: resource.to_sym,
         resources: resource.pluralize.to_sym
       }
