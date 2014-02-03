@@ -1,3 +1,5 @@
+require 'modularize'
+
 module RestPack::Service
   class Command < Mutations::Command
     attr_accessor :response
@@ -89,7 +91,51 @@ module RestPack::Service
       serializer_klass.as_json(model)
     end
 
+    def self.inherited(command)
+      namespaces = command.to_s.split('::') # eg. GroupService::Commands::Group::Create
+
+      add_module_aliases(command, namespaces)
+      add_command_methods(command, namespaces)
+    end
+
     private
+
+    def self.add_module_aliases(command, namespaces)
+      Modularize.create("#{namespaces[0]}::Models")
+      Modularize.create("#{namespaces[0]}::Serializers")
+      Modularize.create("#{namespaces[0]}::#{namespaces[2]}")
+
+      command.const_set(:Model, "#{namespaces[0]}::Models::#{namespaces[2]}".safe_constantize)
+      command.const_set(:Serializer, "#{namespaces[0]}::Serializers::#{namespaces[2]}".safe_constantize)
+
+      command.const_set(:Commands, "#{namespaces[0]}::Commands".safe_constantize)
+      command.const_set(:Models, "#{namespaces[0]}::Models".safe_constantize)
+    end
+
+    def self.add_command_methods(command, namespaces)
+      method_name = command.name.demodulize.downcase
+      container = method_container_module(command, namespaces)
+
+      container.send(
+        :define_singleton_method,
+        method_name.to_sym,
+        Proc.new { |*args| command.run(*args) }
+      )
+
+      container.send(
+        :define_singleton_method,
+        "#{method_name}!".to_sym,
+        Proc.new { |*args| command.run!(*args) }
+      )
+    end
+
+    def self.method_container_module(command, namespaces)
+      if namespaces[1] == 'Commands'
+        "#{namespaces[0]}::#{namespaces[2]}".safe_constantize #GroupService::Group
+      else
+        namespaces.take(namespaces.length - 1).join('::').safe_constantize #Commands::Group
+      end
+    end
 
     def create_models!(array)
       model_klass.create!(array)
