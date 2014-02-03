@@ -11,7 +11,7 @@ module TextService
 
   module Commands
     module Text
-      class Reverse < RestPack::Service::Command
+      class Reverse < RestPack::Command
         required do
           string :text
         end
@@ -27,7 +27,7 @@ end
 
 module Commands
   module Math
-    class Add < RestPack::Service::Command
+    class Add < RestPack::Command
       required do
         integer :a
         integer :b

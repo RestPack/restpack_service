@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe RestPack::Service::Command do
+describe RestPack::Command do
   context 'with a commands in a namespace like TextService::Commands::Text::Reverse' do
     it 'defines sugar methods' do
       TextService::Text.respond_to?(:reverse).should == true
