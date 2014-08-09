@@ -18,16 +18,16 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
 
-  spec.add_dependency "mutations",            "~> 0.6.0"
-  spec.add_dependency "yajl-ruby",            "~> 1.1.0"
-  spec.add_dependency "protected_attributes", "~> 1.0.3"
-  spec.add_dependency "require_all",          "~> 1.3.0"
+  spec.add_dependency "mutations",            "~> 0.7"
+  spec.add_dependency "yajl-ruby",            "~> 1.2"
+  spec.add_dependency "protected_attributes", "~> 1.0"
+  spec.add_dependency "require_all",          "~> 1.3"
   spec.add_dependency "restpack_serializer"
   spec.add_dependency "restpack_gem"
   spec.add_dependency "modularize"
-  spec.add_dependency "sinatra",              "~> 1.4.3"
-  spec.add_dependency "pg",                   "~> 0.16.0"
-  spec.add_dependency "sidekiq",              "~> 2.15.1"
+  spec.add_dependency "sinatra",              "~> 1.4"
+  spec.add_dependency "pg",                   "~> 0.17"
+  spec.add_dependency "sidekiq",              "~> 3.2"
 
   spec.add_development_dependency "bundler",  "~> 1.3"
   spec.add_development_dependency "rake"
