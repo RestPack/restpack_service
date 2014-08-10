@@ -33,3 +33,18 @@ def service_should_map(param, map)
     end
   end
 end
+
+def it_is(status)
+  it "is :#{status}" do
+    expect(response.success?).to eq(false)
+    expect(response.result).to eq({})
+    expect(response.status).to eq(:forbidden)
+  end
+end
+
+def it_succeeds(message='succeeds', &block)
+  it message do
+    expect(response.success?).to eq(true)
+    instance_eval(&block)
+  end
+end
