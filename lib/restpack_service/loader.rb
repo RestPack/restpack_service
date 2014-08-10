@@ -15,11 +15,12 @@ module RestPack::Service
       require "#{service_path}/configuration"
       require_all "#{service_path}/tasks"
 
-      Modularize.create "Models"
-      Modularize.create "Serializers"
-      Modularize.create "Tasks"
-      Modularize.create "Jobs"
-      Modularize.create "Commands::#{module_name}"
+      Modularize.create module_name
+      Modularize.create "#{module_name}::Models"
+      Modularize.create "#{module_name}::Serializers"
+      Modularize.create "#{module_name}::Tasks"
+      Modularize.create "#{module_name}::Jobs"
+      Modularize.create "#{module_name}::Commands"
 
       require_service_module 'models', service_path
       require_service_module 'serializers', service_path
