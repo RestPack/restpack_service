@@ -56,9 +56,9 @@ module RestPack
       add_error key, key, message
     end
 
-    def Serializer
-      self.class.const_get(:Serializer)
-    end
+    # def Serializer
+      # self.class.const_get(:Serializer)
+    # end
 
     def Model
       self.class.const_get(:Model)
