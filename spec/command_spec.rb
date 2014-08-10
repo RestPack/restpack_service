@@ -8,12 +8,17 @@ describe RestPack::Command do
     end
 
     it 'defines aliases' do
-      command = TextService::Commands::Text::Reverse
+      Command = TextService::Commands::Text::Reverse
+      command = Command.new
 
-      expect(command::Model).to eq(TextService::Models::Text)
-      expect(command::Serializer).to eq(TextService::Serializers::Text)
-      expect(command::Commands).to eq(TextService::Commands)
-      expect(command::Models).to eq(TextService::Models)
+      expect(Command::Model).to eq(TextService::Models::Text)
+      expect(command.Model).to eq(TextService::Models::Text)
+
+      expect(Command::Serializer).to eq(TextService::Serializers::Text)
+      expect(command.Serializer).to eq(TextService::Serializers::Text)
+
+      expect(Command::Commands).to eq(TextService::Commands)
+      expect(Command::Models).to eq(TextService::Models)
     end
   end
 
