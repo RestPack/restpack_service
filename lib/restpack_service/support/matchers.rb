@@ -45,6 +45,6 @@ end
 def it_succeeds(message='succeeds', &block)
   it message do
     expect(response.success?).to eq(true)
-    instance_eval(&block)
+    instance_eval(&block) if &block
   end
 end
