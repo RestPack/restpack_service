@@ -34,11 +34,12 @@ def service_should_map(param, map)
   end
 end
 
-def it_fails_with(status)
+def it_fails_with(status, &block)
   it "fails with :#{status}" do
     expect(response.success?).to eq(false)
     expect(response.result).to eq({})
     expect(response.status).to eq(:forbidden)
+    instance_eval(&block) if block_given?
   end
 end
 
