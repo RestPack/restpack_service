@@ -68,7 +68,6 @@ module RestPack::Service
       namespaces = command.to_s.split('::') # eg. GroupService::Commands::Group::Create
 
       add_module_aliases(command, namespaces)
-      add_command_methods(command, namespaces)
     end
 
     private
@@ -83,23 +82,6 @@ module RestPack::Service
 
       command.const_set(:Commands, "#{namespaces[0]}::Commands".safe_constantize)
       command.const_set(:Models, "#{namespaces[0]}::Models".safe_constantize)
-    end
-
-    def self.add_command_methods(command, namespaces)
-      method_name = command.name.demodulize.downcase
-      container = method_container_module(command, namespaces)
-
-      container.send(
-        :define_singleton_method,
-        method_name.to_sym,
-        Proc.new { |*args| command.run(*args) }
-      )
-
-      container.send(
-        :define_singleton_method,
-        "#{method_name}!".to_sym,
-        Proc.new { |*args| command.run!(*args) }
-      )
     end
 
     def self.method_container_module(command, namespaces)
