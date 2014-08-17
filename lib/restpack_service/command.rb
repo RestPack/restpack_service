@@ -57,16 +57,15 @@ module RestPack::Service
     end
 
     def Serializer
-      self.class.const_get(:Serializer)
+      self.class.serializer_class
     end
 
     def Model
-      self.class.const_get(:Model)
+      self.class.model_class
     end
 
     def self.inherited(command)
       namespaces = command.to_s.split('::') # eg. GroupService::Commands::Group::Create
-
       add_module_aliases(command, namespaces)
     end
 
@@ -77,8 +76,17 @@ module RestPack::Service
       Modularize.create("#{namespaces[0]}::Serializers")
       Modularize.create("#{namespaces[0]}::#{namespaces[2]}")
 
-      command.const_set(:Model, "#{namespaces[0]}::Models::#{namespaces[2]}".safe_constantize)
-      command.const_set(:Serializer, "#{namespaces[0]}::Serializers::#{namespaces[2]}".safe_constantize)
+      model_class = "#{namespaces[0]}::Models::#{namespaces[2]}".safe_constantize
+      if model_class
+        command.const_set(:Model, model_class)
+        command.send(:define_singleton_method, "model_class") { model_class }
+      end
+
+      serializer_class = "#{namespaces[0]}::Serializers::#{namespaces[2]}".safe_constantize
+      if serializer_class
+        command.const_set(:Serializer, serializer_class)
+        command.send(:define_singleton_method, "serializer_class") { serializer_class }
+      end
 
       command.const_set(:Commands, "#{namespaces[0]}::Commands".safe_constantize)
       command.const_set(:Models, "#{namespaces[0]}::Models".safe_constantize)
