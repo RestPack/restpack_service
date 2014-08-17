@@ -9,9 +9,14 @@ module TextService
     end
   end
 
+  module Base
+    class Command < RestPack::Service::Command
+    end
+  end
+
   module Commands
     module Text
-      class Reverse < RestPack::Service::Command
+      class Reverse < Base::Command
         required do
           string :text
         end

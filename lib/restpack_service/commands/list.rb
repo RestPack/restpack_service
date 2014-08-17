@@ -8,7 +8,7 @@ module RestPack::Service
       end
 
       def execute
-        Serializer.resource(inputs)
+        self.class.serializer_class.resource(inputs)
       end
     end
   end
