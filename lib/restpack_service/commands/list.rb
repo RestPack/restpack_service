@@ -8,7 +8,13 @@ module RestPack::Service
       end
 
       def execute
-        self.class.serializer_class.resource(inputs)
+        self.class.serializer_class.resource(inputs, scope)
+      end
+
+      private
+
+      def scope
+        self.class.model_class.all
       end
     end
   end
