@@ -13,5 +13,6 @@ require "restpack_service/commands/get"
 require "restpack_service/commands/create"
 require "restpack_service/commands/single_create"
 require "restpack_service/commands/list"
+require "restpack_service/commands/update"
 
 require "restpack_service/loader"
